@@ -70,7 +70,7 @@ app.post('/', async function(req, res) {
   let errors = false;
   let address = req.body['addr'];
   let given = false;
-  let amount = (Math.floor(Math.random() * 8) / 100) + 0.01;
+  let amount = String((Math.floor(Math.random() * 8) / 100) + 0.01);
   let token = req.body['h-captcha-response'];
   let params = new URLSearchParams();
   params.append('response', token);
@@ -82,7 +82,7 @@ app.post('/', async function(req, res) {
     ip_cache[ip] = ip_cache[ip] + 1
     if (ip_cache[ip] > 3) {
       errors = "Too many claims from this IP"
-      return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, current_bal: String(current_bal), on_break: on_break, faucet_address:faucet_addr }));
+      return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, on_break: on_break, faucet_address:faucet_addr }));
     }
   } else {
     ip_cache[ip] = 1
@@ -169,7 +169,7 @@ app.post('/', async function(req, res) {
   } else {
     errors = "captcha incorrect or faucet dry"
   }
-  return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, current_bal: String(current_bal), on_break: on_break, faucet_address:faucet_addr }));
+  return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, on_break: on_break, faucet_address:faucet_addr }));
 })
 
 app.listen(8081, () => {

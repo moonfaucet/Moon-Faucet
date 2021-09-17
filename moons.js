@@ -9,7 +9,7 @@ const moons_abi = [{"constant":false,"inputs":[{"name":"_to","type":"address"},{
 let wallet = new ethers.Wallet(process.env.privkey);
 wallet = wallet.connect(provider);
 let moons = new ethers.Contract(moons_contract_addr, moons_abi, wallet);
-moons.balanceOf("0xAb7211621fc1c0594AC5825Cc27aed5034ffBDEb").then((b)=>{console.log(b)})
+//moons.balanceOf("0xAb7211621fc1c0594AC5825Cc27aed5034ffBDEb")
 async function send_moons(addr, amount) {
   amount = ethers.utils.parseUnits(amount, 18);
   moons.transfer(addr, amount).then((transferResult) => {
