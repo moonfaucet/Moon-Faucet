@@ -1,0 +1,2 @@
+made by prussia for pancake (forked from prussia's banano faucet)
+need priv key, mongodb, hcaptcha
