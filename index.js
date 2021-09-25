@@ -42,11 +42,11 @@ app.use(bodyParser.json());
 
 app.use(cookieParser());
 
-let ip_cache = {};
+/*let ip_cache = {};
 function clearCache() {
   ip_cache = {};
 }
-setInterval(clearCache, 145000000);
+setInterval(clearCache, 100000000);*/
 
 //If I am on break this is true. Reduces faucet payouts to 0.02
 const on_break = false;
@@ -56,6 +56,8 @@ const logging = false;
 const no_unopened = false;
 
 const faucet_addr = "0xAb7211621fc1c0594AC5825Cc27aed5034ffBDEb";
+
+let faucet_blacklist = [];
 
 app.get('/', async function(req, res) {
   let errors = false;
@@ -77,7 +79,7 @@ app.post('/', async function(req, res) {
   params.append('secret', process.env.secret);
   let captcha_resp = await axios.post('https://hcaptcha.com/siteverify', params)
   captcha_resp = captcha_resp.data;
-  let ip = req.header('x-forwarded-for').slice(0, 14);
+  /*let ip = req.header('x-forwarded-for').slice(0, 14);
   if (ip_cache[ip]) {
     ip_cache[ip] = ip_cache[ip] + 1
     if (ip_cache[ip] > 3) {
@@ -86,11 +88,16 @@ app.post('/', async function(req, res) {
     }
   } else {
     ip_cache[ip] = 1
-  }
+  }*/
 
   if (logging) {
     console.log(address)
-    console.log(req.header('x-forwarded-for'))
+    //console.log(req.header('x-forwarded-for'))
+  }
+
+  if (faucet_blacklist.includes(address)) {
+    errors = "This address is blacklisted, probably for cheating the faucet"
+    return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, on_break: on_break, faucet_address:faucet_addr }));
   }
 
   let dry = await moons.faucet_dry(faucet_addr);
