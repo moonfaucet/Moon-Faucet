@@ -3,10 +3,10 @@
     <!-- Ape Lincoln for President -->
     <meta charset="utf-8">
     <meta property="og:title" content="xMoons Faucet">
-    <meta property="og:description" content="Earn Free xMoons!">
+    <meta property="og:description" content="Earn Free Moons!">
     <meta property="og:image" content="(xMoon image here)">
     <meta name="viewport" content="width=device-width">
-    <title>xMoons Faucet</title>
+    <title>Moons Faucet</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -17,15 +17,16 @@
     <header>
       <img src="/LOGO.png" alt="">
     </header>
+      <span id="mode" onclick="toggle_dark_mode()">🌙</span>
       <main id=#main>
       <br>
       {% if given %}
         {% if on_break %}
-          <p>Hello! I am on break, so to prevent the faucet from going dry, payouts are set to 0.02 bans. Please continue to feel free to donate</p>
+          <p>Hello! I am on break, so to prevent the faucet from going dry, payouts are set to 0.03 Moons. Please continue to feel free to donate</p>
         {% else %}
-          <p>Come back in 24 hours to claim xMoons again!</p>
-          <p>{{ amount }} xMoons has been sent to address {{ address }}</p>
-          <p>Donations to {{ faucet_address }} keep the faucet running! Please donate. If the faucet has more than 100 xMoons, payouts will increase.</p>
+          <p>Come back in 24 hours to claim Moons again!</p>
+          <p>{{ amount }} Moons has been sent to address {{ address }}</p>
+          <p>Donations to {{ faucet_address }} keep the faucet running! Please donate. If the faucet has more than 100 Moons, payouts will increase.</p>
         {% endif %}
       {% else %}
         {% if errors %}
@@ -34,21 +35,43 @@
         <form method="POST" action="/">
           <p>Hi! Please donate to the faucet: {{ faucet_address }}.</p>
           <div class="address-input">
-            <label for="address" class="form-label">xMoon Address:</label>
+            <label for="address" class="form-label">Moons Address:</label>
             <input id="address" class="form-control" type="text" name="addr">
           </div>
           <div class="h-captcha" data-sitekey="c7e79b0d-511e-4407-9948-05459694920f"></div>
+          <div id="checkbox"></div>
           <div class="btn-container">
-            <button type="submit">Get Free xMoon</button>
+            <button type="submit">Get Free Moons</button>
           </div>
         </form>
-        <b><a href="https://reddit.com/r/cryptocurrency">What is xMoon?</a></b>
+        <b><a href="https://reddit.com/r/cryptocurrency">What is Moons?</a></b>
       {% endif %}
     </main>
     <footer>
       <p>
-        Frontend courtesy of: Ape Lincoln for President of the Banunion, forked from Prussia's banano faucet
-      </p>
+        Frontend courtesy of: Ape Lincoln for President of the Banunion, forked from <a href="https://prussia.dev">Prussia</a>'s banano faucet. Commissioned by u/UnstoppableOnslaught
+     </p>
     </footer>
+    <script>
+      let input = document.createElement('input');
+      input.required = true;
+      let id = String(Math.floor(Math.random() * (99 - 0 + 1) + 0))
+      input.id = id;
+      input.type = "checkbox";
+      document.getElementById('checkbox').appendChild(input);
+      let label = document.createElement('label');
+      label.innerText = "I am not a bot";
+      label.htmlFor = id;
+      document.getElementById('checkbox').appendChild(label);
+      function toggle_dark_mode() {
+        if (document.body.classList.contains('darkmode')) {
+          document.body.classList.remove('darkmode')
+          document.getElementById("mode").innerText = "🌙"
+        } else {
+          document.body.classList.add('darkmode')
+          document.getElementById("mode").innerText = "☀️"
+        }
+      }
+    </script>
   </body>
 </html>

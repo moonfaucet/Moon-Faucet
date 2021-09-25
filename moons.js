@@ -29,7 +29,7 @@ async function check_bal_moons(addr) {
 
 async function faucet_dry(faucet_addr) {
   let faucet_bal = await check_bal_moons(faucet_addr);
-  if (faucet_bal == 0) {
+  if (faucet_bal < 0.1) {
     return true;
   } 
   return false;
