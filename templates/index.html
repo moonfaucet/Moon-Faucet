@@ -130,17 +130,22 @@
         <div class="dropdown-divider w-75 mx-auto py-0 mt-3 mb-5" style="border-color: white;"></div>
 
         <div>
+            {% if errors %}
+              <p>{{ errors }}</p>
+            {% endif %}
             Please donate to support the faucet: 
             <div class="theme-color">
-                <span id="donate-address">0xAb7211621fc1c0594AC5825Cc27aed5034ffBDEb</span>
+                <span id="donate-address">{{ faucet_address }}</span>
                 <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('donate-address');return false;"></i>
             </div>
         </div>
         
         <div class="my-3"></div>
-
+        {% if given %}
+        <p>{{ amount }} moons sent to {{ address }}</p>
+        {% else %}
         <form method="POST" action="/" class="d-flex flex-column">
-            <input type="text" placeholder="Your Vault Address">
+            <input name="addr" type="text" placeholder="Your Vault Address">
             
             <div class="my-1"></div>
             
@@ -151,6 +156,7 @@
 
             <button type="submit" class="d-flex mx-auto py-2 px-4 mt-3 faucet-button">Get Moons</button>
         </form>
+        {% endif %}
 
         <div class="dropdown-divider w-75 mx-auto py-0 my-4" style="border-color: white;"></div>
         
@@ -223,26 +229,26 @@
                                                 
                                             <div class="col-md-6 d-flex flex-column p-2">
                                                 <span>
-                                                    BTC 
-                                                    <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('onslaught-btc');return false;"></i>
-                                                </span>
-                                                <div id="onslaught-btc">...</div>
-                                            </div>
-
-                                            <div class="col-md-6 d-flex flex-column p-2">
-                                                <span>
                                                     ETH 
                                                     <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('onslaught-eth');return false;"></i>
                                                 </span>
-                                                <div id="onslaught-eth">...</div>
+                                                <div id="onslaught-eth">0xb9034B4E9b472D6bA0ca342D761bfCa1Ed4F348f</div>
                                             </div>
 
                                             <div class="col-md-6 d-flex flex-column p-2">
                                                 <span>
-                                                    Moons 
-                                                    <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('onslaught-moon');return false;"></i>
+                                                    FTM Opera 
+                                                    <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('onslaught-opera');return false;"></i>
                                                 </span>
-                                                <div id="onslaught-moon">...</div>
+                                                <div id="onslaught-opera">0xBF5E1EFF318d07400b16F2C7462E6AbaBdfecd56</div>
+                                            </div>
+
+                                            <div class="col-md-6 d-flex flex-column p-2">
+                                                <span>
+                                                    Nano 
+                                                    <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('onslaught-nano');return false;"></i>
+                                                </span>
+                                                <div id="onslaught-nano">nano_3majsrqrwtaej3b7wha7ryaafnwk85udtn5xmpwrczpdkm7xew7bxaea7c6h</div>
                                             </div>         
                                         </div>
                                         
