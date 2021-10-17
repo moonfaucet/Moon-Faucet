@@ -65,7 +65,7 @@ app.get('/', async function(req, res) {
   let given = false;
   let amount = 0;
   //render template 
-  return res.send(nunjucks.render('index.html', { errors: errors, address: address, given: given, amount: amount, faucet_address:faucet_addr, sitekey: process.env.sitekey }));
+  return res.send(nunjucks.render('index.html', { errors: errors, address: address, given: given, amount: amount, faucet_address:faucet_addr }));
 })
 
 app.post('/', async function(req, res) {
@@ -73,9 +73,6 @@ app.post('/', async function(req, res) {
   let address = req.body['addr'];
   let given = false;
   let amount = String((Math.floor(Math.random() * 8) / 100) + 0.01);
-  if (await moons.is_new(address)) {
-    amount = String(amount/2);
-  }
   let token = req.body['h-captcha-response'];
   let params = new URLSearchParams();
   params.append('response', token);
@@ -87,7 +84,7 @@ app.post('/', async function(req, res) {
     ip_cache[ip] = ip_cache[ip] + 1
     if (ip_cache[ip] > 3) {
       errors = "Too many claims from this IP"
-      return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, on_break: on_break, faucet_address:faucet_addr, sitekey: process.env.sitekey }));
+      return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, on_break: on_break, faucet_address:faucet_addr }));
     }
   } else {
     ip_cache[ip] = 1
@@ -100,7 +97,7 @@ app.post('/', async function(req, res) {
 
   if (faucet_blacklist.includes(address)) {
     errors = "This address is blacklisted, probably for cheating the faucet"
-    return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, on_break: on_break, faucet_address:faucet_addr, sitekey: process.env.sitekey }));
+    return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, on_break: on_break, faucet_address:faucet_addr }));
   }
 
   let dry = await moons.faucet_dry(faucet_addr);
@@ -179,7 +176,7 @@ app.post('/', async function(req, res) {
   } else {
     errors = "captcha incorrect or faucet dry"
   }
-  return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, on_break: on_break, faucet_address:faucet_addr, sitekey: process.env.sitekey }));
+  return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, on_break: on_break, faucet_address:faucet_addr }));
 })
 
 app.listen(8081, () => {
