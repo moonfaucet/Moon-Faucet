@@ -6,253 +6,345 @@
     <meta property="og:description" content="Earn Free xMoons!">
     <meta property="og:image" content="(xMoon image here)">
     <meta name="viewport" content="width=device-width">
-    <link rel="icon" href="./moon.png">
-
-    <script src="https://hcaptcha.com/1/api.js" async defer></script>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
     <title>Moons Faucet</title>
+
+    <style>
+        body {
+            min-height: 100vh;
+            width: 100%;
+
+            margin: 0;
+            padding: 0;
+        
+            background-image: url(./bg.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: left;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            background-color: #222;
+            color: white;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: column;
+        }
+
+        nav .nav-link {
+            color: white;
+        }
+
+        nav .nav-link:hover {
+            color: #f86f2a;
+        }
+
+        .theme-color {
+            color: #f86f2a;
+        }
+
+        main {
+            position: relative;
+            background: rgba(25, 25, 25, 0.75);
+            box-shadow: 0 5px 10px black;
+
+            border: none;
+            border-radius: 10px;
+        }
+
+        main:before {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+
+            height: 100%;
+            width: 100%;
+
+            pointer-events: none;
+            z-index: -1;
+            backdrop-filter: blur(4px);
+        }
+
+        .faucet-button {
+            background: transparent;
+            color: #f86f2a;
+
+            border: 1px solid #f86f2a;
+            box-shadow: 0 2px 5px #d16c3b;
+            border-radius: 5px;
+            transition: .2s ease-in-out;
+        }
+
+        .faucet-button:hover {
+            background: #f86f2a;
+            color: white;
+            box-shadow: 0 5px 10px #d16c3b;
+        }
+
+        .modal i {
+            color: white;
+        }
+
+        .modal-content {
+            background: #191919;
+        }
+
+
+        @media only screen and (max-width: 988px) {
+            body {
+                background-size: 200%;
+            }
+
+            nav .navbar-nav {
+                padding-top: 15px;
+            }
+            
+            nav .navbar-nav .nav-link {
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-<body class="light-theme">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a href="" class="navbar-brand m-0 p-0">
-                <div class="nav-item theme-item">
-                    <button type="button" class="btn" id="theme-toggler">
-                        <img src="./day-and-night.png" alt=""></button>
-                </div>
-            </a>
+<body>
+    <main class="container p-4">
+        <h1 class="text-center theme-color" style="text-shadow: 0 2px 10px #d16c3b;">Moons Faucet</h1>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
+        <div class="dropdown-divider w-75 mx-auto py-0 mt-3 mb-5" style="border-color: white;"></div>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <div class="separator d-none d-lg-block d-xl-block"></div>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://www.reddit.com/r/CryptoCurrency/wiki/moons_wiki">What are Moons?</a>
-                    </li>
-
-                    <li>
-                        <span class="nav-link" type="button" data-toggle="modal" data-target="#exampleModalCenter">
-                            FAQ
-                        </span>
-                        
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="faqModal">Frequently Asked Questions</h5>
-                                        
-                                        <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
-                                            <i class="fas fa-times fa-fw fa-lg"></i>
-                                        </button>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <div class="container">
-
-                                            <div class="row">
-                                                <div><span class="theme-color">Q:</span> What are moons?</div>
-                                                <div><span class="theme-color">A:</span> Moons are r/CryptoCurrency's very own cryptocurrency, which you can sell or spend on subreddit perks</div>
-                                            </div>
-
-                                            <div class="dropdown-divider w-25 mx-auto py-0 my-3" style="border-color: white;"></div>
-
-                                            <div class="row">
-                                                <div><span class="theme-color">Q:</span> How does the payout work?</div>
-                                                <div><span class="theme-color">A:</span> The payout is random between 0.01 and 0.09 moons.</div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <span class="nav-link" type="button" data-toggle="modal" data-target="#donateModal">
-                            Donate
-                        </span>
-                        
-                        <div class="modal fade bd-example-modal-lg" id="donateModal" tabindex="-1" role="dialog" aria-labelledby="donateModal" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="donateModal">Donate</h5>
-                                        
-                                        <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
-                                            <i class="fas fa-times fa-fw fa-lg"></i>
-                                        </button>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <div class="container">
-
-                                            <div class="row">
-                                                <a href="https://reddit.com/user/UnstoppableOnslaught">
-                                                    <h5 class="text-center theme-color">UnstoppableOnslaught</h4>
-                                                </a>
-                                                    
-                                                <div class="col-md-6 d-flex flex-column p-2">
-                                                    <span>
-                                                        ETH
-                                                        <i class="far fa-copy fa-fw ml-1 my-auto" onclick="CopyToClipboard('onslaught-eth');return false;"></i>
-                                                    </span>
-                                                    <div class="wallet-address" id="onslaught-eth">0xb9034B4E9b472D6bA0ca342D761bfCa1Ed4F348f</div>
-                                                </div>
-
-                                                <div class="col-md-6 d-flex flex-column p-2">
-                                                    <span>
-                                                        FTM Opera 
-                                                        <i class="far fa-copy fa-fw ml-1 my-auto" onclick="CopyToClipboard('onslaught-ftm');return false;"></i>
-                                                    </span>
-                                                    <div class="wallet-address" id="onslaught-ftm">0xBF5E1EFF318d07400b16F2C7462E6AbaBdfecd56</div>
-                                                </div>
-
-                                                <div class="col-md-6 d-flex flex-column p-2">
-                                                    <span>
-                                                        Nano 
-                                                        <i class="far fa-copy fa-fw ml-1 my-auto" onclick="CopyToClipboard('onslaught-nano');return false;"></i>
-                                                    </span>
-                                                    <div class="wallet-address" id="onslaught-nano">nano_3majsrqrwtaej3b7wha7ryaafnwk85udtn5xmpwrczpdkm7xew7bxaea7c6h</div>
-                                                </div>         
-                                            </div>
-                                            
-                                            <div class="row">
-                                                <a href="https://reddit.com/user/prussia_dev">
-                                                    <h5 class="text-center theme-color">Prussia</h4>
-                                                </a>
-                                                    
-                                                <div class="col-md-6 d-flex flex-column p-2">
-                                                    <span>
-                                                        BCH 
-                                                        <i class="far fa-copy fa-fw ml-1 my-auto" onclick="CopyToClipboard('prussia-bch');return false;"></i>
-                                                    </span>
-                                                    <div class="wallet-address" id="prussia-bch">qz6q9hqe9r2emrz83m8tg8j2mgqup2hztgvsgzk40k</div>
-                                                </div>
-
-                                                <div class="col-md-6 d-flex flex-column p-2">
-                                                    <span>
-                                                        ETH 
-                                                        <i class="far fa-copy fa-fw ml-1 my-auto" onclick="CopyToClipboard('prussia-eth');return false;"></i>
-                                                    </span>
-                                                    <div class="wallet-address" id="prussia-eth">0x100e6F9164ADf9C924EDc31bc89Ab8bc1E5db2dd</div>
-                                                </div>
-
-                                                <div class="col-md-6 d-flex flex-column p-2">
-                                                    <span>
-                                                        Moons 
-                                                        <i class="far fa-copy fa-fw ml-1 my-auto" onclick="CopyToClipboard('prussia-nano');return false;"></i>
-                                                    </span>
-                                                    <div class="wallet-address" id="prussia-nano">nano_1o7ija3mdbmpzt8qfnck583tn99fiupgbyzxtbk5h4g6j57a7rawge6yzxqp</div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="row">
-                                                <a href="https://reddit.com/user/good-as-hellx">
-                                                    <h5 class="text-center theme-color">good-as-hellx</h4>
-                                                </a>
-
-                                                <div class="col-md-6 d-flex flex-column p-2">
-                                                    <span>
-                                                        Moons 
-                                                        <i class="far fa-copy fa-fw ml-1 my-auto" onclick="CopyToClipboard('prussia-moon');return false;"></i>
-                                                    </span>
-                                                    <div class="wallet-address" id="prussia-moon">0x2829f7658fcc4957ff5ceabd0ee71de03ffae5c5</div>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </nav>
-
-    <main class="container p-3 py-4">
-        <h1 class="text-center theme-color">Moons Faucet</h1>
-
-        <div class="dropdown-divider w-75 mx-auto py-0 mt-3 mb-4" style="border-color: white;"></div>
-
-        <div class="text-center">
+        <div>
             {% if errors %}
-                <p>{{ errors }}</p>
+              <p>{{ errors }}</p>
             {% endif %}
-
             Please donate to support the faucet: 
-            <div>
-                <span class="wallet-address" id="donate-address">0xAb7211621fc1c0594AC5825Cc27aed5034ffBDEb</h5>
+            <div class="theme-color">
+                <span id="donate-address">{{ faucet_address }}</span>
                 <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('donate-address');return false;"></i>
             </div>
         </div>
         
-        <div class="my-4"></div>
-
+        <div class="my-3"></div>
         {% if given %}
-            <p>{{ amount }} Moons sent to {{ address }}</p>
+        <p>{{ amount }} moons sent to {{ address }}</p>
         {% else %}
         <form method="POST" action="/" class="d-flex flex-column">
-            <div class="input-group" id="vault-form">
-                <input type="text" class="form-control" id="vault-input" name="addr" placeholder="Enter Your Vault Address">
-                <div class="input-group-append">
-                    <button type="button" id="paste" onclick="PasteAddress()">Paste</button>
-                </div>
-            </div>
-
+            <input name="addr" type="text" placeholder="Your Vault Address">
+            
             <div class="my-1"></div>
             
-            <div>
-                <div class="h-captcha" data-sitekey="{{ sitekey }}"></div>
+            <div class="h-captcha" data-sitekey="c7e79b0d-511e-4407-9948-05459694920f"></div>
 
-                <div id="checkbox">
-                </div>
+            <div id="checkbox">
             </div>
 
             <button type="submit" class="d-flex mx-auto py-2 px-4 mt-3 faucet-button">Get Moons</button>
         </form>
         {% endif %}
+
+        <div class="dropdown-divider w-75 mx-auto py-0 my-4" style="border-color: white;"></div>
+        
+        <nav class="navbar navbar-expand-lg">
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="https://www.reddit.com/r/CryptoCurrency/wiki/moons_wiki">What are Moons?</a>
+                </li>
+
+                <li>
+                    <span class="nav-link" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+                        FAQ
+                    </span>
+                    
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="faqModal">Frequently Asked Questions</h5>
+                                    
+                                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                                        <i class="fas fa-times fa-fw fa-lg"></i>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="container">
+
+                                        <div class="row">
+                                            <div><span class="theme-color">Q:</span> What are moons?</div>
+                                            <div><span class="theme-color">A:</span> Moons are r/CryptoCurrency's very own cryptocurrency, which you can sell or spend on subreddit perks</div>
+                                        </div>
+
+                                        <div class="dropdown-divider w-25 mx-auto py-0 my-3" style="border-color: white;"></div>
+
+                                        <div class="row">
+                                            <div><span class="theme-color">Q:</span> How does the payout work?</div>
+                                            <div><span class="theme-color">A:</span> The payout is random between 0.01 and 0.09 moons.</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <span class="nav-link" type="button" data-toggle="modal" data-target="#donateModal">
+                        Donate
+                    </span>
+                    
+                    <div class="modal fade bd-example-modal-lg" id="donateModal" tabindex="-1" role="dialog" aria-labelledby="donateModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="donateModal">Donate</h5>
+                                    
+                                    <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">
+                                        <i class="fas fa-times fa-fw fa-lg"></i>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="container">
+
+                                        <div class="row">
+                                            <h5 class="text-center theme-color">UnstopableOnslaught</h4>
+                                                
+                                            <div class="col-md-6 d-flex flex-column p-2">
+                                                <span>
+                                                    ETH 
+                                                    <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('onslaught-eth');return false;"></i>
+                                                </span>
+                                                <div id="onslaught-eth">0xb9034B4E9b472D6bA0ca342D761bfCa1Ed4F348f</div>
+                                            </div>
+
+                                            <div class="col-md-6 d-flex flex-column p-2">
+                                                <span>
+                                                    FTM Opera 
+                                                    <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('onslaught-opera');return false;"></i>
+                                                </span>
+                                                <div id="onslaught-opera">0xBF5E1EFF318d07400b16F2C7462E6AbaBdfecd56</div>
+                                            </div>
+
+                                            <div class="col-md-6 d-flex flex-column p-2">
+                                                <span>
+                                                    Nano 
+                                                    <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('onslaught-nano');return false;"></i>
+                                                </span>
+                                                <div id="onslaught-nano">nano_3majsrqrwtaej3b7wha7ryaafnwk85udtn5xmpwrczpdkm7xew7bxaea7c6h</div>
+                                            </div>         
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <h5 class="text-center theme-color">Prussia</h4>
+                                                
+                                            <div class="col-md-6 d-flex flex-column p-2">
+                                                <span>
+                                                    BCH 
+                                                    <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('prussia-bch');return false;"></i>
+                                                </span>
+                                                <div id="prussia-bch">qz6q9hqe9r2emrz83m8tg8j2mgqup2hztgvsgzk40k</div>
+                                            </div>
+
+                                            <div class="col-md-6 d-flex flex-column p-2">
+                                                <span>
+                                                    ETH 
+                                                    <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('prussia-eth');return false;"></i>
+                                                </span>
+                                                <div id="prussia-eth">0x100e6F9164ADf9C924EDc31bc89Ab8bc1E5db2dd</div>
+                                            </div>
+
+                                            <div class="col-md-6 d-flex flex-column p-2">
+                                                <span>
+                                                    Nano 
+                                                    <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('prussia-nano');return false;"></i>
+                                                </span>
+                                                <div id="prussia-nano">nano_1o7ija3mdbmpzt8qfnck583tn99fiupgbyzxtbk5h4g6j57a7rawge6yzxqp</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <h5 class="text-center theme-color">good-as-hellx</h4>
+
+                                            <div class="col-md-6 d-flex flex-column p-2">
+                                                <span>
+                                                    Moons 
+                                                    <i class="far fa-copy fa-fw text-white ml-1 my-auto" onclick="CopyToClipboard('prussia-moon');return false;"></i>
+                                                </span>
+                                                <div id="prussia-moon">0x2829f7658fcc4957ff5ceabd0ee71de03ffae5c5</div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </nav>
     </main>
 
-    <footer class="container d-flex flex-column mt-5">
-        <span class="small text-muted">Frontend courtesy of Ape Lincoln for President of the Banunion and good-as-hellx, forked from <a href="https://faucet.prussia.dev">Prussia's Banano faucet</a>. Backend modifications by Prussia.</span>
-        <span class="small text-muted">Commissioned and funded by u/UnstoppableOnslaught</span>
+    <footer>
+        <span class="small text-muted">Frontend courtesy of Ape Lincoln for President of the Banunion and good-as-hellx, forked from Prussia's banano faucet | Commissioned and funded by u/UnstoppableOnslaught</span>
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     
-    <script src='/app.js'></script>
-
     <script>
-      let input = document.createElement('input');
-      input.required = true;
-      let id = String(Math.floor(Math.random() * (99 - 0 + 1) + 0))
-      input.id = id;
-      input.type = "checkbox";
-      document.getElementById('checkbox').appendChild(input);
-      let label = document.createElement('label');
-      label.innerText = "I am not a bot";
-      label.htmlFor = id;
-      document.getElementById('checkbox').appendChild(label);
+        function CopyToClipboard(id) {
+            var r = document.createRange();
+            r.selectNode(document.getElementById(id));
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(r);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+
+            Swal.fire(
+                'Address copied to clipboard!',
+                '',
+                'success'
+            )
+        }
+        let input = document.createElement('input');
+        input.required = true;
+        let id = String(Math.floor(Math.random() * (99 - 0 + 1) + 0))
+        input.id = id;
+        input.type = "checkbox";
+        document.getElementById('checkbox').appendChild(input);
+        let label = document.createElement('label');
+        label.innerText = "I am not a bot";
+        label.htmlFor = id;
+        document.getElementById('checkbox').appendChild(label);
+        function toggle_dark_mode() {
+          if (document.body.classList.contains('darkmode')) {
+            document.body.classList.remove('darkmode')
+            document.getElementById("mode").innerText = "🌙"
+          } else {
+            document.body.classList.add('darkmode')
+            document.getElementById("mode").innerText = "☀️"
+          }
+        }
     </script>
 </body>
 </html>
