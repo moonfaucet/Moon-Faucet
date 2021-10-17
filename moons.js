@@ -1,3 +1,4 @@
+const axios = require('axios');
 const { ethers } = require("ethers");
 
 const provider = new ethers.providers.JsonRpcProvider('https://testnet.redditspace.com/rpc');
@@ -35,9 +36,20 @@ async function faucet_dry(faucet_addr) {
   return false;
 }
 
+async function is_new(addr) {
+  let res = await axios.get('https://testnet.redditspace.com/api?module=account&action=tokentx&address='+addr);
+  console.log(res.data)
+  if (res.data.result.length == 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 module.exports = {
   send_moons: send_moons,
   check_bal_xdai: check_bal_xdai,
   check_bal_moons: check_bal_moons,
-  faucet_dry: faucet_dry
+  faucet_dry: faucet_dry,
+  is_new: is_new
 }
