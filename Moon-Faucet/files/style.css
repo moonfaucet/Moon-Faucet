@@ -1,0 +1,208 @@
+:root {
+  --background-radient1: rgba(200, 150, 50, 1);
+  --background-radient2: #fff;
+  --color: black;
+  --main-bg: rgba(125, 125, 125, 0.25);
+  --modal-bg: white;
+  --modal-txt: black;
+}
+
+.darkmode {
+  --background-radient1: rgba(200, 150, 50, 1);
+  --background-radient2: #191919;
+  --color: white;
+  --main-bg: rgba(2, 2, 2, 0.25);
+  --modal-bg: #191919;
+  --modal-txt: white;
+}
+
+body {
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  background: url("./bg.png"), radial-gradient(var(--background-radient1), var(--background-radient2));
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: var(--color);
+  font-family: 'Raleway', sans-serif;
+}
+
+@media only screen and (min-width: 998px) {
+  body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding-bottom: 20px;
+  }
+}
+
+main {
+  position: relative;
+  background: var(--main-bg);
+  color: white;
+  -webkit-box-shadow: 0 10px 25px 0 rgba(135, 109, 31, 0.5);
+          box-shadow: 0 10px 25px 0 rgba(135, 109, 31, 0.5);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+main h1 {
+  text-shadow: 0 2px 2px black;
+}
+
+main::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+}
+
+nav .navbar-toggler, nav .navbar-toggler:active, nav .navbar-toggler:focus {
+  outline: none;
+  -webkit-box-shadow: 0 0 0 transparent;
+          box-shadow: 0 0 0 transparent;
+}
+
+nav i.fa-bars {
+  color: var(--color);
+}
+
+nav .nav-link {
+  color: var(--color);
+  text-align: center;
+}
+
+nav .nav-link:hover, nav .nav-link:active {
+  color: orange;
+}
+
+nav .theme-item img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  height: 30px;
+  width: 100%;
+}
+
+nav .theme-item img button:active, nav .theme-item img button:focus {
+  outline: none;
+  -webkit-box-shadow: 0 0 0 transparent;
+          box-shadow: 0 0 0 transparent;
+}
+
+form #vault-form {
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+form #vault-form input {
+  background: transparent;
+  color: white;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+form #vault-form input:active, form #vault-form input:focus {
+  outline: none;
+  -webkit-box-shadow: 0 0 0 transparent;
+          box-shadow: 0 0 0 transparent;
+}
+
+form #vault-form :-ms-input-placeholder {
+  color: #e1e1e1;
+}
+
+form #vault-form ::-webkit-input-placeholder {
+  color: #e1e1e1;
+  opacity: 1;
+}
+
+form #vault-form ::-ms-input-placeholder {
+  color: #e1e1e1;
+  opacity: 1;
+}
+
+form #vault-form ::placeholder {
+  color: #e1e1e1;
+  opacity: 1;
+}
+
+form #vault-form #paste {
+  border: 1px solid white;
+  padding: 0 24px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 100%;
+}
+
+.faucet-button {
+  background: transparent;
+  color: white;
+  border: 1px solid #ff9900;
+  border-radius: 10px;
+  -webkit-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+}
+
+.faucet-button:hover {
+  background: #ff9900;
+  -webkit-box-shadow: 0 12.5px 25px black;
+          box-shadow: 0 12.5px 25px black;
+  border: 1px solid black;
+  -webkit-transform: translateY(-5px) scale(1.05);
+          transform: translateY(-5px) scale(1.05);
+}
+
+.theme-color {
+  color: #f0a71f;
+}
+
+.modal-content {
+  background: var(--modal-bg);
+  color: var(--color);
+  border-radius: 10px;
+  -webkit-box-shadow: 0 10px 25px 0 rgba(135, 109, 31, 0.5);
+          box-shadow: 0 10px 25px 0 rgba(135, 109, 31, 0.5);
+}
+
+.modal-content i {
+  color: var(--color);
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+.separator {
+  height: 100%;
+  width: 1px;
+  margin: 0 25px;
+  background-color: var(--color);
+}
+
+.wallet-address {
+  word-wrap: break-word;
+}
+
+.h-captcha {
+  overflow: hidden;
+}
+
+a, a:hover {
+  text-decoration: none;
+}
+/*# sourceMappingURL=style.css.map */
